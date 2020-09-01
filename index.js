@@ -1,7 +1,6 @@
 const { Builder, By, Key, until, Capabilities} = require("selenium-webdriver");
 const firefox = require('selenium-webdriver/firefox');
-fs = require("fs");
-
+require('geckodriver').path;
 
 
 (async function example() {
@@ -13,16 +12,21 @@ fs = require("fs");
   
   let caps = Capabilities.firefox();
   caps.set('silent', true);
+
+  const options = new firefox.Options()
+  options.headless();
+  options.windowSize(screen);
+
   let driver = await new Builder()
                         .forBrowser("firefox")
                         .withCapabilities(caps)
-                        .setFirefoxOptions(new firefox.Options().headless().windowSize(screen))
+                        .setFirefoxOptions(options)
                         .build();
   try {
     await driver.get("http://www.google.com/ncr");
     await driver
       .findElement(By.name("q"))
-      .sendKeys("http://rentcars.com.br", Key.RETURN);
+      .sendKeys("https://rentcars.com.br", Key.RETURN);
 
 
     let elementoQuantidadeAnuncios = await driver.wait(
