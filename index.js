@@ -14,8 +14,8 @@ require('geckodriver').path;
   caps.set('silent', true);
 
   const options = new firefox.Options()
-  options.headless();
-  options.windowSize(screen);
+  options.headless(); //Inicia o navegador no modo headless, em background
+  options.windowSize(screen); //Define o tamanho inicial da tela
 
   let driver = await new Builder()
                         .forBrowser("firefox")
@@ -23,7 +23,7 @@ require('geckodriver').path;
                         .setFirefoxOptions(options)
                         .build();
   try {
-    await driver.get("http://www.google.com/ncr");
+    await driver.get("http://www.google.com.br/ncr");
     await driver
       .findElement(By.name("q"))
       .sendKeys("https://rentcars.com.br", Key.RETURN);
